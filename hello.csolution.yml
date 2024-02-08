@@ -6,7 +6,6 @@ solution:
   packs:
     - pack: ARM::CMSIS
     - pack: ARM::CMSIS-RTX
-    - pack: ARM::CMSIS-Compiler
     - pack: Keil::STM32U5xx_DFP
     - pack: Keil::B-U585I-IOT02A_BSP
 
