@@ -15,7 +15,7 @@ project:
     - component: CMSIS:CORE
     - component: CMSIS:RTOS2:Keil RTX5&Source
 
-    - component: CMSIS-Compiler:I/O:STDOUT&User
+    #- component: ARM::CMSIS-Compiler:Compiler:I/O
 
     - component: Device:Startup&Source C
 
@@ -42,8 +42,11 @@ project:
     - component: Keil::Device:STM32Cube LL:RCC
     - component: Keil::Device:STM32Cube LL:UCPD
     - component: Keil::Device:STM32Cube LL:UTILS
+    - component: ARM::CMSIS:OS Tick:SysTick@1.0.5
 
   output:
     type:
       - elf
       - hex
+  packs:
+    - pack: ARM::CMSIS@6.0.0
