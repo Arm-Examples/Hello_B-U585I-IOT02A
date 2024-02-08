@@ -15,8 +15,6 @@ project:
     - component: CMSIS:CORE
     - component: CMSIS:RTOS2:Keil RTX5&Source
 
-    #- component: ARM::CMSIS-Compiler:Compiler:I/O
-
     - component: Device:Startup&Source C
 
     - component: Keil::Device:STM32Cube Framework:STM32CubeMX
