@@ -14,13 +14,11 @@ project:
   components:
     - component: CMSIS:CORE
     - component: CMSIS:RTOS2:Keil RTX5&Source
-
-    - component: CMSIS-Compiler:I/O:STDOUT&User
-
+    - component: CMSIS:OS Tick:SysTick
+    - component: CMSIS-Compiler:CORE
+    - component: CMSIS-Compiler:STDOUT:Custom
     - component: Device:Startup&Source C
-
     - component: Keil::Device:STM32Cube Framework:STM32CubeMX
-
     - component: Keil::Device:STM32Cube HAL:Common
     - component: Keil::Device:STM32Cube HAL:Cortex
     - component: Keil::Device:STM32Cube HAL:DMA
