@@ -1,0 +1,39 @@
+name: Build example
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # https://github.com/ARM-software/cmsis-actions
+      - name: Activate vcpkg
+        uses: ARM-software/cmsis-actions/vcpkg@v1
+
+      # https://github.com/ARM-software/cmsis-actions
+      - name: Activate Arm tool license
+        uses: ARM-software/cmsis-actions/armlm@v1
+
+      # Build the Release executable for the AC6 compiler
+      - name: Build release executable
+        if: always()
+        continue-on-error: true
+        working-directory: ./
+        run: |
+          cbuild hello.csolution.yml --packs --context .Release --rebuild
+
+      # Build the Debug executable for the AC6 compiler
+      - name: Build debug executable
+        if: always()
+        continue-on-error: true
+        working-directory: ./
+        run: |
+          cbuild hello.csolution.yml --packs --context .Debug --rebuild
