@@ -24,7 +24,7 @@ jobs:
       - name: Activate Arm tool license
         uses: ARM-software/cmsis-actions/armlm@v1
 
-      # Build the Release and debug executable for the AC6 compiler
+      # Build the release and debug executable for the AC6 compiler
       - name: Build release and debug executable
         run: |
-          cbuild hello.csolution.yml --packs --context .+B-U585I-IOT02A --rebuild
+          cbuild hello.csolution.yml --context .+B-U585I-IOT02A --rebuild

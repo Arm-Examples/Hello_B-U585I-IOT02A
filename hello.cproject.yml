@@ -45,6 +45,3 @@ project:
     type:
       - axf
       - hex
-  packs:
-    - pack: ARM::CMSIS@6.1.0
-    - pack: ARM::CMSIS-Compiler@2.0.0

@@ -1,4 +1,4 @@
 cbuild-set:
   contexts:
-    - context: hello.Debug+B-U585I-IOT02A
     - context: hello.Release+B-U585I-IOT02A
+    - context: hello.Debug+B-U585I-IOT02A
