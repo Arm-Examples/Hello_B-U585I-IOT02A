@@ -43,7 +43,7 @@ project:
 
   output:
     type:
-      - elf
+      - axf
       - hex
   packs:
     - pack: ARM::CMSIS@6.1.0
