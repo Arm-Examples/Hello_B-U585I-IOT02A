@@ -27,4 +27,4 @@ jobs:
       # Build the release and debug executable for the AC6 compiler
       - name: Build release and debug executable
         run: |
-          cbuild hello.csolution.yml --context .+B-U585I-IOT02A --rebuild
+          cbuild hello.csolution.yml --packs --context .+B-U585I-IOT02A --rebuild
