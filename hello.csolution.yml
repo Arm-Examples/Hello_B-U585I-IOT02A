@@ -2,6 +2,7 @@ solution:
   description: Simple Hello World example for B-U585I-IOT02A
   created-for: CMSIS-Toolbox@2.5.0
   compiler: AC6
+  cdefault: ./cdefault.yml
 
   packs:
     - pack: ARM::CMSIS
