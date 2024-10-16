@@ -16,6 +16,8 @@ project:
     - component: CMSIS-Compiler:CORE
     - component: CMSIS-Compiler:STDOUT:Custom
     - component: CMSIS:OS Tick:SysTick
+    - component: CMSIS:RTOS2:Keil RTX5&Source@5.8.0
+
     - component: Device:Startup&Source C
     - component: Device:STM32Cube Framework:STM32CubeMX
     - component: Device:STM32Cube HAL:Common
@@ -39,4 +41,3 @@ project:
     - component: Device:STM32Cube LL:RCC
     - component: Device:STM32Cube LL:UCPD
     - component: Device:STM32Cube LL:UTILS
-    - component: CMSIS:RTOS2:Keil RTX5&Source@5.8.0
