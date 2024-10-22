@@ -1,3 +1,8 @@
+[![License](https://img.shields.io/github/license/Arm-Examples/Hello_B-U585I-IOT02A?label)](https://github.com/Arm-Examples/Hello_B-U585I-IOT02A/blob/main/LICENSE)
+[![Build and Execution Test](https://img.shields.io/github/actions/workflow/status/Arm-Examples/Hello_B-U585I-IOT02A/build.yml?logo=arm&logoColor=0091bd&label=Build%20and%20Execution%20Test)](https://github.com/Arm-Examples/Hello_B-U585I-IOT02A/tree/main/.github/workflows/build.yml)
+
+
+
 # Hello example for B-U585I-IOT02A
 
 Simple Hello World example for STMicroelectronics [**B-U585I-IOT02A**](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) Discovery kit.
@@ -11,7 +16,7 @@ This example prints "Hello World" and a counter value via the standard output wh
 
 ### Tools
 
-- [CMSIS-Toolbox v2.0.0](https://github.com/Open-CMSIS-Pack/cmsis-toolbox/releases) or newer
+- [CMSIS-Toolbox v2.6.1](https://github.com/Open-CMSIS-Pack/cmsis-toolbox/releases) or newer
 - [Microsoft Visual Studio Code](https://code.visualstudio.com/download) with Keil Studio Pack extension (optional, alternatively CLI can be used)
 - [Arm Compiler 6](https://developer.arm.com/Tools%20and%20Software/Arm%20Compiler%20for%20Embedded) (default toolchain, automatically installed when using Visual Studio Code with vcpkg)
 
