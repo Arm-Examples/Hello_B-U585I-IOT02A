@@ -1,5 +1,6 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2021-2022 Arm Limited (or its affiliates). All rights reserved.
+ * Copyright (c) 2024 Arm Limited (or its affiliates).
+ * All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -16,73 +17,86 @@
  * limitations under the License.
  *
  *      Name:    retarget_stdio.c
- *      Purpose: Retarget stdio to ST-Link (Virtual COM Port)
+ *      Purpose: Retarget stdio to CMSIS UART
  *
  *---------------------------------------------------------------------------*/
 
-#include "stm32u5xx_hal.h"
-#include "cmsis_os2.h"                  // ::CMSIS:RTOS2
+#ifdef   CMSIS_target_header
+#include CMSIS_target_header
+#else
+#include "Driver_USART.h"
+#endif
 
+#ifndef RETARGET_STDIO_UART
+#error "RETARGET_STDIO_UART not defined!"
+#endif
 
-#define HUARTx            huart1
-#define UART_BUFFER_SIZE  2048U         // must be 2^n
-#define UART_RX_EVENT     1U
+// Compile-time configuration
+#define UART_BAUDRATE     115200
 
-extern UART_HandleTypeDef HUARTx;
-
+// Exported functions
+extern int stdio_init     (void);
 extern int stderr_putchar (int ch);
 extern int stdout_putchar (int ch);
 extern int stdin_getchar  (void);
 
-// Local Variables
-         static uint8_t  uart_rx_initialized = 0U;
-         static uint8_t  uart_rx_buf[UART_BUFFER_SIZE];
-volatile static uint32_t uart_rx_idx_i;
-volatile static uint32_t uart_rx_idx_o;
+#ifndef CMSIS_target_header
+extern ARM_DRIVER_USART   ARM_Driver_USART_(RETARGET_STDIO_UART);
+#endif
 
-static osEventFlagsId_t  uart_rx_evt_id;
-
+#define ptrUSART          (&ARM_Driver_USART_(RETARGET_STDIO_UART))
 
 /**
-  Uart receive callback
+  Initialize stdio
+
+  \return          0 on success, or -1 on error.
 */
-static void uart_rx_callback (UART_HandleTypeDef * huart, uint16_t num) {
-  uint32_t idx, cnt;
+int stdio_init (void) {
 
-  // UART data received, restart new reception
-  uart_rx_idx_i += num;
-  idx = uart_rx_idx_i & (UART_BUFFER_SIZE - 1U);
-  cnt = UART_BUFFER_SIZE - idx;
-  HAL_UARTEx_ReceiveToIdle_IT(&HUARTx, &uart_rx_buf[idx], cnt);
+  if (ptrUSART->Initialize(NULL) != ARM_DRIVER_OK) {
+    return -1;
+  }
 
-  osEventFlagsSet(uart_rx_evt_id, UART_RX_EVENT);
-}
+  if (ptrUSART->PowerControl(ARM_POWER_FULL) != ARM_DRIVER_OK) {
+    return -1;
+  }
 
-/**
-  Uart receive initialize
-*/
-static void uart_rx_init (void) {
+  if (ptrUSART->Control(ARM_USART_MODE_ASYNCHRONOUS |
+                        ARM_USART_DATA_BITS_8       |
+                        ARM_USART_PARITY_NONE       |
+                        ARM_USART_STOP_BITS_1       |
+                        ARM_USART_FLOW_CONTROL_NONE,
+                        UART_BAUDRATE) != ARM_DRIVER_OK) {
+    return -1;
+  }
 
-  uart_rx_idx_i = 0U;
-  uart_rx_idx_o = 0U;
+  if (ptrUSART->Control(ARM_USART_CONTROL_RX, 1U) != ARM_DRIVER_OK) {
+    return -1;
+  }
 
-  uart_rx_evt_id = osEventFlagsNew(NULL);
+  if (ptrUSART->Control(ARM_USART_CONTROL_TX, 1U) != ARM_DRIVER_OK) {
+    return -1;
+  }
 
-  HAL_UART_RegisterRxEventCallback(&HUARTx, uart_rx_callback);
-  HAL_UARTEx_ReceiveToIdle_IT(&HUARTx, uart_rx_buf, UART_BUFFER_SIZE);
+  return 0;
 }
 
 /**
   Put a character to the stderr
- 
+
   \param[in]   ch  Character to output
   \return          The character written, or -1 on write error.
 */
 int stderr_putchar (int ch) {
+  uint8_t buf[1];
 
-  if (HAL_UART_Transmit(&HUARTx, (uint8_t *)&ch, 1U, 1000U) != HAL_OK) {
+  buf[0] = (uint8_t)ch;
+
+  if (ptrUSART->Send(buf, 1U) != ARM_DRIVER_OK) {
     return -1;
   }
+
+  while (ptrUSART->GetStatus().tx_busy != 0U);
 
   return ch;
 }
@@ -94,39 +108,32 @@ int stderr_putchar (int ch) {
   \return          The character written, or -1 on write error.
 */
 int stdout_putchar (int ch) {
+  uint8_t buf[1];
 
-  if (HAL_UART_Transmit(&HUARTx, (uint8_t *)&ch, 1U, 1000U) != HAL_OK) {
+  buf[0] = (uint8_t)ch;
+
+  if (ptrUSART->Send(buf, 1U) != ARM_DRIVER_OK) {
     return -1;
   }
+
+  while (ptrUSART->GetStatus().tx_busy != 0U);
 
   return ch;
 }
 
 /**
   Get a character from the stdio
- 
+
   \return     The next character from the input, or -1 on read error.
 */
 int stdin_getchar (void) {
-  int ch = -1;
-  uint32_t idx, cnt;
+  uint8_t buf[1];
 
-  if (uart_rx_initialized == 0U) {
-    uart_rx_init();
-    uart_rx_initialized = 1U;
+  if (ptrUSART->Receive(buf, 1U) != ARM_DRIVER_OK) {
+    return -1;
   }
 
-  do {
-    cnt = uart_rx_idx_i - uart_rx_idx_o;
-    if (cnt > 0U) {
-      idx = uart_rx_idx_o & (UART_BUFFER_SIZE - 1U);
-      ch = uart_rx_buf[idx];
-      uart_rx_idx_o++;
-    }
-    else {
-      osEventFlagsWait(uart_rx_evt_id, UART_RX_EVENT, osFlagsWaitAny, osWaitForever);
-    }
-  } while (cnt == 0U);
+  while (ptrUSART->GetStatus().rx_busy != 0U);
 
-  return ch;
+  return (int)buf[0];
 }

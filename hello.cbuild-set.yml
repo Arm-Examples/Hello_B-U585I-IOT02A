@@ -1,5 +1,5 @@
 cbuild-set:
   generated-by: csolution version 2.6.0
   contexts:
-    - context: hello.Release+B-U585I-IOT02A  
+    - context: hello.Release+B-U585I-IOT02A
     - context: hello.Debug+B-U585I-IOT02A
