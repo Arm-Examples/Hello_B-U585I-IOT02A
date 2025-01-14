@@ -1,8 +1,6 @@
 [![License](https://img.shields.io/github/license/Arm-Examples/Hello_B-U585I-IOT02A?label)](https://github.com/Arm-Examples/Hello_B-U585I-IOT02A/blob/main/LICENSE)
 [![Build and Execution Test](https://img.shields.io/github/actions/workflow/status/Arm-Examples/Hello_B-U585I-IOT02A/build.yml?logo=arm&logoColor=0091bd&label=Build%20and%20Execution%20Test)](https://github.com/Arm-Examples/Hello_B-U585I-IOT02A/tree/main/.github/workflows/build.yml)
 
-
-
 # Hello example for B-U585I-IOT02A
 
 Simple Hello World example for STMicroelectronics [**B-U585I-IOT02A**](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) Discovery kit.
