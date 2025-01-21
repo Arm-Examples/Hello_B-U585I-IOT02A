@@ -1,0 +1,16 @@
+{
+    "image":"mcr.microsoft.com/devcontainers/universal:2",
+    "customizations": {
+        "vscode": {
+           "extensions": [
+                "redhat.vscode-yaml",
+                "arm.cmsis-csolution",
+                "arm.environment-manager",
+                "arm.device-manager",
+                "arm.embedded-debug",
+                "eclipse-cdt.peripheral-inspector",
+                "eclipse-cdt.memory-inspector"
+            ]
+        }
+    }   
+}
