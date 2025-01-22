@@ -4,6 +4,7 @@
         "vscode": {
            "extensions": [
                 "redhat.vscode-yaml",
+                "arm.keil-studio-pack",
                 "arm.cmsis-csolution",
                 "arm.environment-manager",
                 "arm.device-manager",
