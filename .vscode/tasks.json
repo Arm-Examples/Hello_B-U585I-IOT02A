@@ -10,6 +10,16 @@
 			"processorName": "${command:cmsis-csolution.getProcessorName}",
 			"problemMatcher": [],
 			"label": "arm-debugger.flash: Flash Device"
+		},
+		{
+			"type": "embedded-debug.flash",
+			"serialNumber": "${command:device-manager.getSerialNumber}",
+			"program": "${command:embedded-debug.getApplicationFile}",
+			"cmsisPack": "${command:cmsis-csolution.getTargetPack}",
+			"deviceName": "${command:cmsis-csolution.getDeviceName}",
+			"processorName": "${command:cmsis-csolution.getProcessorName}",
+			"problemMatcher": [],
+			"label": "embedded-debug.flash: Flash Device"
 		}
 	]
 }
