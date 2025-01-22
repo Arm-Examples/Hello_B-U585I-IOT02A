@@ -1,5 +1,5 @@
 {
-    "image":"mcr.microsoft.com/devcontainers/universal:2",
+    "image":"ghcr.io/arm-examples/hello_b-u585i-iot02a/devcontainer:pr-9",
     "customizations": {
         "vscode": {
            "extensions": [

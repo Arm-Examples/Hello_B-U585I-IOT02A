@@ -12,7 +12,7 @@ RUN . ~/.vcpkg/vcpkg-init && \
     vcpkg-shell x-update-registry --all && \
     vcpkg-shell activate && \
     cpackget init https://www.keil.com/pack/index.pidx && \
-    cpackget add -f packlist.txt
+    cpackget add -a -f packlist.txt
 
 FROM mcr.microsoft.com/devcontainers/universal:2
 
