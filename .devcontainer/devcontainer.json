@@ -1,0 +1,17 @@
+{
+    "image":"ghcr.io/arm-examples/hello_b-u585i-iot02a/devcontainer:pr-9",
+    "customizations": {
+        "vscode": {
+           "extensions": [
+                "redhat.vscode-yaml",
+                "arm.keil-studio-pack",
+                "arm.cmsis-csolution",
+                "arm.environment-manager",
+                "arm.device-manager",
+                "arm.embedded-debug",
+                "eclipse-cdt.peripheral-inspector",
+                "eclipse-cdt.memory-inspector"
+            ]
+        }
+    }   
+}

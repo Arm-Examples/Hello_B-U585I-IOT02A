@@ -13,6 +13,16 @@
             "cmsisPack": "${command:cmsis-csolution.getTargetPack}",
             "deviceName": "${command:cmsis-csolution.getDeviceName}",
             "processorName": "${command:cmsis-csolution.getProcessorName}"
+        },
+        {
+            "name": "Arm Embedded Debugger",
+            "type": "embedded-debug",
+            "request": "launch",
+            "serialNumber": "${command:device-manager.getSerialNumber}",
+            "program": "${command:embedded-debug.getApplicationFile}",
+            "cmsisPack": "${command:cmsis-csolution.getTargetPack}",
+            "deviceName": "${command:cmsis-csolution.getDeviceName}",
+            "processorName": "${command:cmsis-csolution.getProcessorName}"
         }
     ]
 }
