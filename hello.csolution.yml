@@ -24,6 +24,12 @@ solution:
       board: STMicroelectronics::B-U585I-IOT02A
       processor:
         trustzone: off
+      target-set:
+        - set: 
+          debugger:
+            name: ST-LINK
+          images:
+            - project-context: hello.Debug
 
   # List of different build configurations.
   build-types:
@@ -34,6 +40,15 @@ solution:
     - type: Release
       debug: off
       optimize: balanced
+
+  misc:
+    - for-compiler: AC6
+      C-CPP:
+        - -gdwarf-5
+      ASM:
+        - -gdwarf-5
+      Link:
+        - --entry=Reset_Handler
 
   # List related projects.
   projects:

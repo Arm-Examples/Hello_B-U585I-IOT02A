@@ -1,12 +1,5 @@
 {
-    "cmsis-csolution.actions": [
-        {
-            "path": "hello.csolution.yml",
-            "target": "B-U585I-IOT02A",
-            "config": {
-                "run": "arm-debugger.flash: Flash Device",
-                "debug": "Arm Debugger"
-            }
-        }
+    "clangd.arguments": [
+        "--compile-commands-dir=/Users/chrsei01/02_Git/Arm-Examples/Hello_B-U585I-IOT02A/out/hello/B-U585I-IOT02A/Release"
     ]
 }
