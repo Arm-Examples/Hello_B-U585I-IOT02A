@@ -30,18 +30,10 @@ Open the 'CMSIS' view from the side bar, select desired 'Build Type' and press t
 
 ### Using Command Line Interface (CLI)
 
-Download required packs (not required when the packs are already available) by executing the following commands:
-
-```sh
-csolution list packs -s hello.csolution.yml -m >packs.txt
-cpackget update-index
-cpackget add -f packs.txt
-```
-
 Build the project by executing the following command:
 
 ```sh
-cbuild hello.csolution.yml
+cbuild hello.csolution.yml --packs
 ```
 
 ## Run the application
