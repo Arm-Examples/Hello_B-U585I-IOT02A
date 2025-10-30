@@ -1,4 +1,0 @@
-cbuild-set:
-  generated-by: vscode-cmsis-csolution version 1.53.0
-  contexts:
-    - context: hello.Debug+B-U585I-IOT02A

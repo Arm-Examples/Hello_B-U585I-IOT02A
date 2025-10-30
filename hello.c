@@ -21,6 +21,11 @@
 #include "main.h"
 #include "cmsis_os2.h"
 
+// Create thread attribute to show thread name in the RTOS viewer:
+const osThreadAttr_t app_main_attr = {
+  .name = "MainThread"
+};
+
 /*-----------------------------------------------------------------------------
  * Application main thread
  *----------------------------------------------------------------------------*/
@@ -38,8 +43,11 @@ static void app_main_thread (void *argument) {
  * Application initialization
  *----------------------------------------------------------------------------*/
 int app_main (void) {
-  osKernelInitialize();                         /* Initialize CMSIS-RTOS2 */
-  osThreadNew(app_main_thread, NULL, NULL);
-  osKernelStart();                              /* Start thread execution */
+  // Initialize CMSIS-RTOS2:
+  osKernelInitialize();
+  // Create named application main thread:
+  osThreadNew(app_main_thread, NULL, &app_main_attr);
+  // Start thread execution:
+  osKernelStart();
   return 0;
 }

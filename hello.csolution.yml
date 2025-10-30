@@ -25,7 +25,7 @@ solution:
       processor:
         trustzone: off
       target-set:
-        - set: 
+        - set:
           debugger:
             name: ST-LINK
           images:
