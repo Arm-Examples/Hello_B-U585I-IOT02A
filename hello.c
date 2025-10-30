@@ -1,5 +1,5 @@
 /*---------------------------------------------------------------------------
- * Copyright (c) 2023-2024 Arm Limited (or its affiliates).
+ * Copyright (c) 2023-2025 Arm Limited (or its affiliates).
  * All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -17,22 +17,20 @@
  * limitations under the License.
  *---------------------------------------------------------------------------*/
 
-#include <stdio.h>
-#include "main.h"
 #include "cmsis_os2.h"
+#include "main.h"
+#include <stdio.h>
 
-// Create thread attribute to show thread name in the RTOS viewer:
-const osThreadAttr_t app_main_attr = {
-  .name = "MainThread"
-};
+// Create thread attribute to show thread name in the XRTOS viewer:
+const osThreadAttr_t app_main_attr = {.name = "MainThread"};
 
 /*-----------------------------------------------------------------------------
  * Application main thread
  *----------------------------------------------------------------------------*/
-static void app_main_thread (void *argument) {
+static void app_main_thread(void *argument) {
   (void)argument;
 
-  for(int count = 0; count < 10; count++) {
+  for (int count = 0; count < 10; count++) {
     printf("Hello World %d\r\n", count);
     osDelay(1000U);
   }
@@ -42,7 +40,7 @@ static void app_main_thread (void *argument) {
 /*-----------------------------------------------------------------------------
  * Application initialization
  *----------------------------------------------------------------------------*/
-int app_main (void) {
+int app_main(void) {
   // Initialize CMSIS-RTOS2:
   osKernelInitialize();
   // Create named application main thread:
